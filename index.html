@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo to Video</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="logo">&#9654;</span>
+      <h1>Photo <span class="accent">to</span> Video</h1>
+      <p class="tagline">Upload a photo, describe an action, get a video.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── LEFT PANEL: Input ── -->
+    <section class="panel panel-input">
+
+      <!-- Upload zone -->
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">&#128247;</div>
+          <p class="upload-label">Drag &amp; drop a photo here</p>
+          <p class="upload-sub">or <button class="link-btn" id="browseBtn">browse files</button></p>
+          <p class="upload-hint">JPEG · PNG · WebP &nbsp;·&nbsp; max 10 MB</p>
+        </div>
+        <div class="upload-preview" id="uploadPreview" hidden>
+          <img id="previewImg" src="" alt="Preview" />
+          <button class="remove-btn" id="removeBtn" title="Remove image">&#10005;</button>
+        </div>
+      </div>
+
+      <!-- Prompt -->
+      <div class="field">
+        <label for="promptInput">Action prompt</label>
+        <textarea
+          id="promptInput"
+          rows="3"
+          maxlength="500"
+          placeholder="e.g. The person waves their hand and smiles at the camera"
+        ></textarea>
+        <span class="char-count" id="charCount">0 / 500</span>
+      </div>
+
+      <!-- Settings row -->
+      <div class="settings-row">
+
+        <div class="field-group">
+          <label>Duration</label>
+          <div class="btn-group" id="durationGroup">
+            <button class="toggle-btn active" data-value="5">5 s</button>
+            <button class="toggle-btn" data-value="10">10 s</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Aspect ratio</label>
+          <div class="btn-group" id="ratioGroup">
+            <button class="toggle-btn active" data-value="16:9">16:9</button>
+            <button class="toggle-btn" data-value="9:16">9:16</button>
+            <button class="toggle-btn" data-value="1:1">1:1</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Model</label>
+          <div class="btn-group" id="modelGroup">
+            <button class="toggle-btn active" data-value="kling-v1">v1</button>
+            <button class="toggle-btn" data-value="kling-v1-5">v1.5 &#9733;</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Generate button -->
+      <button class="generate-btn" id="generateBtn" disabled>
+        <span id="generateLabel">Generate Video</span>
+      </button>
+
+    </section>
+
+    <!-- ── RIGHT PANEL: Result ── -->
+    <section class="panel panel-result">
+
+      <!-- Idle state -->
+      <div class="result-idle" id="resultIdle">
+        <div class="idle-icon">&#127916;</div>
+        <p>Your generated video will appear here.</p>
+      </div>
+
+      <!-- Progress state -->
+      <div class="result-progress" id="resultProgress" hidden>
+        <div class="spinner"></div>
+        <p class="progress-label" id="progressLabel">Submitting to Kling AI…</p>
+        <p class="progress-sub">This usually takes 1–3 minutes.</p>
+      </div>
+
+      <!-- Error state -->
+      <div class="result-error" id="resultError" hidden>
+        <div class="error-icon">&#9888;</div>
+        <p class="error-msg" id="errorMsg">Something went wrong.</p>
+        <button class="retry-btn" id="retryBtn">Try again</button>
+      </div>
+
+      <!-- Success state -->
+      <div class="result-success" id="resultSuccess" hidden>
+        <video
+          id="videoPlayer"
+          controls
+          loop
+          playsinline
+          preload="auto"
+        ></video>
+        <div class="video-actions">
+          <a class="download-btn" id="downloadBtn" download="generated.mp4">
+            &#8595; Download MP4
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Powered by <strong>Kling AI</strong> &nbsp;·&nbsp; Built with FastAPI</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
