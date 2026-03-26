@@ -224,6 +224,11 @@ function showVideo(url) {
 }
 
 function setGenerating(on) {
-  generateBtn.disabled = on;
   generateLabel.textContent = on ? 'Generating…' : 'Generate Video';
+  if (on) {
+    generateBtn.disabled = true;
+  } else {
+    // Fix #5: re-evaluate based on current state, not unconditionally enable
+    updateGenerateBtn();
+  }
 }
